@@ -1,0 +1,8 @@
+ - 2 membres : _x, _y
+ - 3 constructeurs (default, param, copie) + 1 assignation
+ - 2 operator[] (const et non-const) avec le pattern i ? _y : _x
+ - 3 opérateurs composés (+=, -=, *=)
+ - 3 opérateurs binaires (+, -, *) + 1 unaire (-)
+ - 4 incr/décr (pré/post ++ et --)
+ - 2 comparaisons (==, !=)
+ - 2 free functions dans le .cpp (<< et int * vect2)

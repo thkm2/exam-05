@@ -1,0 +1,9 @@
+ - 1 membre : string d (digits en ordre inverse, unités en premier)
+ - 3 constructeurs (default "0", int, copie) + 1 assignation
+ - 1 helper privé : trim() supprime les zeros de fin de string
+ - 1 addition (operator+) grade school avec carry
+ - 2 digit-shifts (<< insère des '0' au début, >> efface du début)
+ - 3 composés (+=, <<=, >>=) inline via *this = *this op o
+ - 2 incr (pré ++ et post ++)
+ - 2 comparaisons de base (== et <), 4 dérivées inline (!=, >, <=, >=)
+ - 1 free function friend dans le .cpp (operator<< ostream)
