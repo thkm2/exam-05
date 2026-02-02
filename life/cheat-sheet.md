@@ -1,0 +1,8 @@
+ - 1 fichier life.c, 5 fonctions, includes : stdio, stdlib, unistd
+ - board = char* flat array (calloc w*h), 1=vivant 0=mort
+ - nb(b,w,h,i) : compte voisins vivants, double boucle dy/dx -1..1, skip (0,0), check bornes
+ - step(b,w,h) : malloc copie, pour chaque cellule b[i] = (n==3 || (n==2 && cp[i])), free copie
+ - draw(b,w,h) : read(0,&c,1) en boucle, x toggle pen, wasd deplace avec bornes, if pen → b[y*w+x]=1
+ - print(b,w,h) : putchar 'O' ou ' ', putchar '\n' tous les w chars
+ - main : check ac==4, atoi w/h/n, calloc, draw, step n fois, print, free
+ - stylo demarre (0,0) pen=0 (up), marque APRES chaque commande valide si pen down
