@@ -1,3 +1,18 @@
+free :
+'+'
+'<<'
+'>>'
+
+subtile :
+'bigint(int n)'
+'<'
+
+#include <string>
+#include <iostream>
+#include <cstdlib>
+
+
+
 Stockage : std::string _n en ordre naturel (MSB first)
   1337 est stocke comme "1337". Print = juste os << _n.
 
