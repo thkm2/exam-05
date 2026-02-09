@@ -4,18 +4,20 @@
 
 int main(int ac, char **av) {
 	if (ac != 4) return 1;
-
-	int w, h, n, x, y, pen, *b;
+	int w, h, n, pen, x, y, sx, sy, c, *b, *sb, *tmp;
+	char ch;
 	w = atoi(av[1]);
 	h = atoi(av[2]);
 	n = atoi(av[3]);
-	b = calloc(w * h, sizeof(int));
+	pen = x = y = 0;
+	b = calloc(w*h, sizeof(int));
 	if (!b) return 1;
-
-	char ch;
-	pen = 0;
-	x = 0;
-	y = 0;
+	sb = calloc(w*h, sizeof(int));
+	if (!sb) {
+		free(b);
+		return 1;
+	}
+	// 1. BASE
 	while (read(0, &ch, 1) == 1) {
 		if (ch == 'x') {
 			pen = !pen;
@@ -23,43 +25,44 @@ int main(int ac, char **av) {
 		}
 		if (ch == 'w' && y > 0) y--;
 		if (ch == 'a' && x > 0) x--;
-		if (ch == 's' && y < h - 1) y++;
-		if (ch == 'd' && x < w - 1) x++;
+		if (ch == 's' && y < h-1) y++;
+		if (ch == 'd' && x < w-1) x++;
+
 		if (pen) b[y * w + x] = 1;
 	}
-	int *t, *tmp;
-	t = calloc(w * h, sizeof(int));
-	int ty, tx, my, mx;
+
+	// 2. LIFE
 	while (n-- > 0) {
-		ty = -1;
-		while (++ty < h) {
-			tx = -1;
-			while (++tx < w) {
-				int c = 0;
-				my = -2;
-				while (++my <= 1) {
-					mx = -2;
-					while (++mx <= 1) {
-						if ((mx != 0 || my != 0) && tx + mx < w && ty + my < h && tx + mx >= 0 && ty + my >= 0)
-							c += b[(ty+my) * w + tx + mx];
+		y = -1;
+		while (++y < h) {
+			x = -1;
+			while (++x < w) {
+				c = 0;
+				sy = -2;
+				while (++sy <= 1) {
+					sx = -2;
+					while (++sx <= 1) {
+						if ((sx || sy) && y+sy >= 0 && x+sx >= 0 && y+sy < h && x+sx < w)
+							c += b[(y+sy) * w + x + sx];
 					}
 				}
-				t[ty * w + tx] = (c == 3 || (c == 2 && b[ty * w + tx]));
+				sb[y * w + x] = (c == 3 || (c == 2 && b[y * w + x]));
 			}
 		}
-		tmp = b; b = t; t = tmp;
+		tmp = b; b = sb; sb = tmp;
 	}
 
-	int px, py;
-	py = -1;
-	while (++py < h) {
-		px = -1;
-		while (++px < w) {
-			putchar(b[py * w + px] ? 'O' : ' ');
+	// 3. PRINT
+	y = -1;
+	while (++y < h) {
+		x = -1;
+		while (++x < w) {
+			putchar(b[y * w + x] ? 'O' : ' ');
 		}
 		putchar('\n');
 	}
+
 	free(b);
-	free(t);
-	return (0);
+	free(sb);
+	return 0;
 }
