@@ -1,6 +1,6 @@
 #!/bin/bash
 cd "$(dirname "$0")"
-gcc -o life my-life.c || exit 1
+gcc -o life my-life-2.c || exit 1
 
 PASS=0
 FAIL=0
